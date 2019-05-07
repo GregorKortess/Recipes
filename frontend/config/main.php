@@ -46,7 +46,11 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'profile/<nickname:\w+>' => 'user/profile/view',
             ],
+        ],
+        'storage' => [
+          'class' => 'frontend\components\Storage',
         ],
 
     ],
