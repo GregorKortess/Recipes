@@ -15,7 +15,7 @@ use dosamigos\fileupload\FileUpload;
 <img src="<?php echo $user->getPicture(); ?>" id="profile-picture" width="180px" height="200px" />
 
 
-<?php if ($currentUser->equals($user)): ?>
+<?php if ($currentUser && $currentUser->equals($user)): ?>
 
 <div class="alert alert-success" style="display: none" id="profile-image-success">Profile image updated</div>
     <div class="alert alert-danger" style="display: none" id="profile-image-fail"></div>

@@ -15,6 +15,9 @@ return [
         'user' => [
             'class' => 'frontend\modules\user\Module',
         ],
+        'recipe' => [
+            'class' => 'frontend\modules\recipe\Module',
+        ],
     ],
     'components' => [
         'request' => [
