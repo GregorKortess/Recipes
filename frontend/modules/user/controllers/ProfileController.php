@@ -4,7 +4,7 @@
 namespace frontend\modules\user\controllers;
 
 use Yii;
-use Faker;
+use yii\web\Response;
 use frontend\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,23 +28,47 @@ class ProfileController extends Controller
 
     public function actionUploadPicture()
     {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
         $model = new PictureForm();
-        $model->picture = UploadedFile::getInstance($model,'picture');
+        $model->picture = UploadedFile::getInstance($model, 'picture');
 
         if ($model->validate()) {
 
-           $user = Yii::$app->user->identity;
-           $user->picture = Yii::$app->storage->saveUploadedFile($model->picture);
+            $user = Yii::$app->user->identity;
+            $user->picture = Yii::$app->storage->saveUploadedFile($model->picture); // 15/27/30379e706840f951d22de02458a4788eb55f.jpg
 
-           if ($user->save(false,['picture'])) {
-               print_r($user->attributes);die;
-           }
+            if ($user->save(false, ['picture'])) {
+                return [
+                    'success' => true,
+                    'pictureUri' => Yii::$app->storage->getFile($user->picture),
+                ];
+            }
+        }
+        return ['success' => false, 'errors' => $model->getErrors()];
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionDeletePicture()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
         }
 
-        echo "<pre>";
-        print_r($model->getErrors());
-        echo "<pre>";
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        if ($currentUser->deletePicture()) {
+            Yii::$app->session->setFlash('success', 'Picture deleted');
+        } else {
+            Yii::$app->session->setFlash('danger', 'Error occured');
+        }
+
+        return $this->redirect(['/user/profile/view', 'nickname' => $currentUser->getNickname()]);
     }
+
 
     /**
      * @param $nickname
