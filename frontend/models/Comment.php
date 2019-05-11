@@ -37,4 +37,13 @@ class Comment extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
         ];
     }
+
+    /**
+     * Get recipe comments
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments($id)
+    {
+       return Comment::find()->where(['recipe_id' => $id])->all();
+    }
 }

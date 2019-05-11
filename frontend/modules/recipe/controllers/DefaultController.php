@@ -3,8 +3,10 @@
 namespace frontend\modules\recipe\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use frontend\models\Recipe;
+use frontend\models\Comment;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -27,16 +29,16 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->picture = UploadedFile::getInstance($model,'picture');
+            $model->picture = UploadedFile::getInstance($model, 'picture');
 
-            if($model->save()) {
-                Yii::$app->session->setFlash('success','Рецепт создан !');
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Рецепт создан !');
                 return $this->goHome();
             }
 
         }
 
-        return $this->render('create',[
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -52,19 +54,23 @@ class DefaultController extends Controller
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
-        $model = new CommentForm(Yii::$app->user->identity,$id);
+        $model = new CommentForm(Yii::$app->user->identity, $id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success','Комментарий добавлен');
-            return $this->refresh();
+            Yii::$app->session->setFlash('success', 'Комментарий добавлен');
+            return $this->redirect('/recipe/' . $id . '#bottom');
         }
 
+        $commentsModel = new Comment();
 
-        return $this->render('view',[
+        $comments = $commentsModel->getComments($id);
+
+        return $this->render('view', [
             'recipe' => $this->findRecipe($id),
             'currentUser' => $currentUser,
             'model' => $model,
+            'comments' => $comments
         ]);
     }
 
@@ -74,7 +80,7 @@ class DefaultController extends Controller
      */
     public function actionLike()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
 
@@ -100,7 +106,7 @@ class DefaultController extends Controller
      */
     public function actionUnlike()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
         }
 
