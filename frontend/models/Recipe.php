@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use yii\db\Connection;
 /**
  * This is the model class for table "recipe".
  *
@@ -53,5 +53,84 @@ class Recipe extends \yii\db\ActiveRecord
             'difficulty' => 'Difficulty',
             'cooking_time' => 'Cooking Time',
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return Yii::$app->storage->getFile($this->filename);
+    }
+
+    /**
+     * Ger recipe author
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function like(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+        $redis->sadd("recipe:{$this->getId()}:likes", $user->getId());
+        $redis->sadd("user:{$user->getId()}:likes",$this->getId());
+
+        $sql = "UPDATE user SET rating=rating+1 WHERE id=".$this->getUserId(); ;
+        return Yii::$app->db->createCommand($sql)->execute();
+    }
+
+    /**
+     * @param User $user
+     */
+    public function unlike(User $user)
+    {
+
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+        $redis->srem("recipe:{$this->getId()}:likes", $user->getId());
+        $redis->srem("user:{$user->getId()}:likes",$this->getId());
+
+        $sql = "UPDATE user SET rating=rating-1 WHERE id=".$this->getUserId(); ;
+        return Yii::$app->db->createCommand($sql)->execute();
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function countLikes()
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+        return $redis->scard("recipe:{$this->getId()}:likes");
+    }
+
+    /**
+     * Check whether given user liked current post
+     * @param \frontend\models\User $user
+     * @return integer
+     */
+    public function isLikedBy(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+        return $redis->sismember("recipe:{$this->getId()}:likes", $user->getId());
+    }
+
+    private function getId()
+    {
+        return $this->id;
+    }
+
+    private function getUserId()
+    {
+        return $this->user_id;
     }
 }

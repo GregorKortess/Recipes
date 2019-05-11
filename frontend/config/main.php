@@ -28,6 +28,7 @@ return [
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
+
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
@@ -50,6 +51,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'profile/<nickname:\w+>' => 'user/profile/view',
+                'recipe/<id:\d+>' => 'recipe/default/view',
             ],
         ],
         'storage' => [
