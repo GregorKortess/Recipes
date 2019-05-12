@@ -25,6 +25,10 @@ class DefaultController extends Controller
     public function actionCreate()
     {
 
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
         $model = new RecipeForm(Yii::$app->user->identity);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -58,7 +62,6 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', 'Комментарий добавлен');
             return $this->redirect('/recipe/' . $id . '#bottom');
         }
 

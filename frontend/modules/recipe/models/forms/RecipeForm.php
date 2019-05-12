@@ -6,11 +6,13 @@ use Yii;
 use yii\base\Model;
 use frontend\models\Recipe;
 use frontend\models\User;
+use frontend\models\events\RecipeCreatedEvent;
 
 class RecipeForm extends Model
 {
 
     const MAX_DESCRIPTION_LENGTH = 1500;
+    const EVENT_RECIPE_CREATED = 'recipe_created';
 
     public $picture;
     public $description;
@@ -44,6 +46,7 @@ class RecipeForm extends Model
     public function __construct(User $user)
     {
         $this->user = $user;
+        $this->on(self::EVENT_RECIPE_CREATED,[Yii::$app->feedService,'addToFeeds']);
     }
 
     public function save()
@@ -65,8 +68,17 @@ class RecipeForm extends Model
             $recipe->difficulty = $this->difficulty;
             $recipe->cooking_time = $this->cooking_time;
 
-            return $recipe->save(false);
+            if ($recipe->save(false)){
+
+                $event = new RecipeCreatedEvent();
+                $event->user = $this->user;
+                $event->recipe = $recipe;
+
+                $this->trigger(self::EVENT_RECIPE_CREATED,$event);
+                return true;
+            }
         }
+        return false;
     }
 
     private function getMaxFileSize()
