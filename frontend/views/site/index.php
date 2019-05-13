@@ -26,7 +26,9 @@ $this->title = 'My Yii Application';
             </a>
         </div>
 
+        <a href="<?php echo Url::to('/recipe/'.$feedItem->recipe_id) ?>">
         <img src="<?php echo Yii::$app->storage->getFIle($feedItem->recipe_filename); ?>" width="700" height="500">
+        </a>
         <div class="col-md-12">
             <?php echo HtmlPurifier::process($feedItem->recipe_description); ?>
         </div>
@@ -38,7 +40,7 @@ $this->title = 'My Yii Application';
 
         <div class="col-md-12">
             Likes: <span class="likes-count"><?php echo $feedItem->countLikes(); ?></span>
-
+                <?php /* @var $currentUser  */ ?>
             <a href="#" class="btn btn-primary button-unlike" style="<?php echo ($currentUser->likesRecipe($feedItem->recipe_id)) ? "" : "display:none"; ?>" data-id="<?php echo $feedItem->recipe_id; ?>">
                 Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
             </a>
@@ -62,6 +64,6 @@ $this->title = 'My Yii Application';
 </div>
 
 <?php $this->registerJsFile('@web/js/like.js',[
-  'depends' => \yii\web\JqueryAsset::className(),
+  'depends' => JqueryAsset::className(),
 ]);
 

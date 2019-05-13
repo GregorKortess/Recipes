@@ -39,6 +39,7 @@ $listOfTypes = ['Первое' => 'Первое','Второе' => "Второе
     <?php echo $form->field($model, 'difficulty')->label('Сложность приготовления:')->dropDownList(['Простая' => "Простая", 'Средняя' => 'Средняя', 'Сложная' => 'Сложная']); ?>
 
     <?php echo Html::submitButton('Создать'); ?>
+    <br><br>
 
 
     <?php ActiveForm::end(); ?>
