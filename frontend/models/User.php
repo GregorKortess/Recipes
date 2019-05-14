@@ -234,4 +234,19 @@ class User extends ActiveRecord implements IdentityInterface
        $redis = Yii::$app->redis;
        return (bool) $redis->sismember("user:{$this->getId()}:likes",$recipeId);
     }
+
+    /**
+     * @return int|string
+     */
+    public function getRecipeCount()
+    {
+        return $this->hasMany(Recipe::className(), ['user_id' => 'id'])->count();
+    }
+
+
+    public function getRecipes()
+    {
+       $order = ['created_at' => SORT_DESC];
+       return $this->hasMany(Recipe::className(),['user_id' => 'id'])->orderBy($order)->all();
+    }
 }

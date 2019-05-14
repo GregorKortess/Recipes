@@ -68,14 +68,18 @@ class DefaultController extends Controller
         $commentsModel = new Comment();
 
         $comments = $commentsModel->getComments($id);
+        $commentsCount = $commentsModel->getCommentsCount($id);
 
         return $this->render('view', [
             'recipe' => $this->findRecipe($id),
             'currentUser' => $currentUser,
             'model' => $model,
-            'comments' => $comments
+            'comments' => $comments ,
+            'commentsCount' => $commentsCount,
         ]);
     }
+
+
 
     /**
      * @return array|Response

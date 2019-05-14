@@ -210,6 +210,11 @@ header .header-top .brand-logo h1 span {
     text-decoration: none;
 }
 
+.blog-posts .post .post-bottom .post-likes a.display-none
+{
+    display: none;
+}
+
 .blog-posts .post .post-bottom .post-comments, .post-report {
     position: relative;
     display: inline-block;

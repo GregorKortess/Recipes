@@ -46,4 +46,10 @@ class Comment extends \yii\db\ActiveRecord
     {
        return Comment::find()->where(['recipe_id' => $id])->all();
     }
+
+    public function getCommentsCount($id)
+    {
+        return Comment::find()->where(['recipe_id' => $id])->count();
+
+    }
 }

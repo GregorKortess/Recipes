@@ -124,7 +124,7 @@ class Recipe extends \yii\db\ActiveRecord
         return $redis->sismember("recipe:{$this->getId()}:likes", $user->getId());
     }
 
-    private function getId()
+    public function getId()
     {
         return $this->id;
     }
