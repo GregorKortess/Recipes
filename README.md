@@ -1,25 +1,29 @@
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
+        <img src="https://cdn.dizkon.ru/images/contests/2015/01/02/54a6a180501fe.700x534.80.jpg" height="100px">
     </a>
     <h1 align="center">Yii 2 Advanced Project Template</h1>
     <br>
 </p>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
-
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
-
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
-
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
+ <h2 align="center"> Сайт для создания и просмотров рецептов </h2>
+ 
+ Функционал - 
+ Регистрация;
+ Личный кабинет;
+ Создание и просмотр рецептов;
+ Система рейтинга;
+ Лайки на Redis;
+ Комментарии к постам;
+ <h4> Фото проекта </h4>
+ <img src="https://i.gyazo.com/b8a3e9a0b638e39afbf14475a4ffa113.png" alt="">
+<img src="https://i.gyazo.com/0222b387190362faf87aa39dddddb508.jpg" alt="">
+<img src="https://i.gyazo.com/4a8068bfebf54048a84282cddeadfc35.png" alt="">
+<img src="https://i.gyazo.com/85e49674ee96eec52b98548bc7ce2167.png" alt="">
+<img src="https://i.gyazo.com/595c634443b88ee558631184be9b51cc.png" alt="">
+<img src="https://i.gyazo.com/960bc878eff83f3760fc10b74734cf87.png" alt="">
+<img src="https://i.gyazo.com/93349b8b9630148e15fdaa549c289773.png" alt="">
+ 
 
 DIRECTORY STRUCTURE
 -------------------
@@ -47,6 +51,7 @@ backend
     web/                 contains the entry script and Web resources
 frontend
     assets/              contains application assets such as JavaScript and CSS
+    components           contains frontend copmponents classes and interfaces 
     config/              contains frontend configurations
     controllers/         contains Web controller classes
     models/              contains frontend-specific model classes
