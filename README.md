@@ -17,12 +17,19 @@
  Комментарии к постам;
  <h4> Фото проекта </h4>
  <img src="https://i.gyazo.com/b8a3e9a0b638e39afbf14475a4ffa113.png" alt="">
+ "<hr>"
 <img src="https://i.gyazo.com/0222b387190362faf87aa39dddddb508.jpg" alt="">
+ "<hr>"
 <img src="https://i.gyazo.com/4a8068bfebf54048a84282cddeadfc35.png" alt="">
+ "<hr>"
 <img src="https://i.gyazo.com/85e49674ee96eec52b98548bc7ce2167.png" alt="">
+ "<hr>"
 <img src="https://i.gyazo.com/595c634443b88ee558631184be9b51cc.png" alt="">
+ "<hr>"
 <img src="https://i.gyazo.com/960bc878eff83f3760fc10b74734cf87.png" alt="">
+ "<hr>"
 <img src="https://i.gyazo.com/93349b8b9630148e15fdaa549c289773.png" alt="">
+ "<hr>"
  
 
 DIRECTORY STRUCTURE
